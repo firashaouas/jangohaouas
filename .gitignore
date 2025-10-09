@@ -1,0 +1,4 @@
+./venv/
+./haouas/db.sqlite3
+./haouas/papers/
+./__pycache__/
