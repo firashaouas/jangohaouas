@@ -16,9 +16,12 @@ file_validator=FileExtensionValidator(
    message="doit etre .pdf"
 )
 def maxi(keywords):
-    mots = keywords.split(' ')
-    if len(mots) > 10:
-        raise validationError("Maximum 10 mots-clés autorisés")
+    s=[]
+    for k in keywords.strip().split():
+        if k!=' ':
+            s.append(k)
+    if len(s) > 10 :
+        raise validationError("Maximum 10 mots-cles autorises")
 
 
 class Conference(models.Model):
@@ -35,7 +38,10 @@ class Conference(models.Model):
    start_date=models.DateField()
    end_date=models.DateField()
    created_at=models.DateTimeField(auto_now_add=True)
-   update_at=models.DateTimeField(auto_now=True)
+   updated_at = models.DateTimeField(auto_now=True)
+   def __str__(self):
+       return f'la conference a comme titre {self.name}'
+       
    def clean(self):
      if self.start_date and self.end_date:
             if self.start_date > self.end_date:
@@ -63,7 +69,6 @@ class Submission(models.Model):
         today = timezone.now().date()
 
         if self.user and self.conference:
-            # Limite 3 soumissions par jour
             submissions_today = Submission.objects.filter(
                 user=self.user,
                 submission_date__date=today
@@ -72,7 +77,6 @@ class Submission(models.Model):
             if self.pk is None and submissions_today >= 3:
                 raise validationError("Maximum 3 soumissions par jour")
 
-            # Vérifie que la conférence est à venir
             if today > self.conference.start_date:
                 raise validationError("La soumission ne peut être faite que pour des conférences à venir")
 
