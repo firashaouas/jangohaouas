@@ -24,5 +24,6 @@ urlpatterns = [
     path('conferences/',include("ConferenceApp.urls")),
     path('user/',include("UserApp.urls")),
     path("submissions/", SubmissionList.as_view(), name="submission_list"),
+    path('api/', include('SessionAppApi.urls')),
 
 ]
