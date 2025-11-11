@@ -1,0 +1,35 @@
+<h2>Ajouter une nouvelle soumission</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label>Titre :</label>
+        <input type="text" name="title" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Résumé (abstract) :</label>
+        <textarea name="abstract" class="form-control" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label>Mots-clés :</label>
+        <textarea name="keywords" class="form-control" required></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label>Fichier PDF :</label>
+        <input type="file" name="paper" class="form-control" accept="application/pdf" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Conférence :</label>
+        {{ form.conference }}
+    </div>
+    
+
+    <button type="submit" class="btn btn-success">Soumettre</button>
+
+    <a href="{% url 'submission_list' %}" class="btn btn-secondary">Annuler</a>
+</form>

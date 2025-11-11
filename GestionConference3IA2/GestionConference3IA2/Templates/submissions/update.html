@@ -1,0 +1,28 @@
+<h2>Modifier la soumission</h2>
+
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="mb-3">
+        <label>Titre :</label>
+        <input type="text" name="title" value="{{ form.instance.title }}" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+        <label>Résumé :</label>
+        <textarea name="abstract" class="form-control" required>{{ form.instance.abstract }}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label>Mots-clés :</label>
+        <textarea name="keywords" class="form-control" required>{{ form.instance.keywords }}</textarea>
+    </div>
+
+    <div class="mb-3">
+        <label>Nouveau fichier PDF (optionnel) :</label>
+        <input type="file" name="paper" class="form-control" accept="application/pdf">
+    </div>
+
+    <button type="submit" class="btn btn-success">Mettre à jour</button>
+    <a href="{% url 'submission_list' %}" class="btn btn-secondary">Annuler</a>
+</form>

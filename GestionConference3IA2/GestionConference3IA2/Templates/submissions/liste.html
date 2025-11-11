@@ -1,0 +1,52 @@
+<h2>Mes Soumissions</h2>
+<a href="{% url 'submission_add' %}" class="btn btn-primary mb-3">
+    + Nouvelle soumission
+</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Titre</th>
+            <th>Statut</th>
+            <th>Auteur</th>
+            <th>Conférence</th>
+            <th>Date de soumission</th>
+            <th>Paiement</th>
+            <th>Détails</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for s in submissions %}
+        <tr>
+            <td>{{ s.title }}</td>
+            <td>{{ s.status }}</td>
+            <td>{{ s.user.username }}</td>
+            <td>{{ s.conference.name }}</td>
+            <td>{{ s.submission_date }}</td>
+            <td>
+                {% if s.payed %}
+                    ✅ Payé
+                {% else %}
+                    ❌ Non payé
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'submission_details' s.pk %}" class="btn btn-primary btn-sm">
+    Détails
+</a>
+
+            </td>
+           
+            </td>
+            <td>
+<a href="{% url 'submission_update' s.pk %}" class="btn btn-warning">
+    Modifier
+</a>
+
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
